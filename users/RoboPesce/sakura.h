@@ -28,6 +28,7 @@ bool sakura(effect_params_t* params)
 
     inline uint32_t interval(void) 
     {
+        // TODO: scale this properly
         return 500 / scale16by8(qadd8(rgb_matrix_config.speed, 16), 16) + random8_max(100);
     }
 
@@ -35,6 +36,7 @@ bool sakura(effect_params_t* params)
 
     inline uint16_t create_new_timer(void)
     {
+        // TODO: create a good random interval
         //something like this
         //return time + random() something rgb_matrix_config.speed
         return time + interval(); // for now, just do one second
@@ -47,6 +49,7 @@ bool sakura(effect_params_t* params)
     // For all the recently pressed keys, set their saturation to white and reset their timer
     for (int8_t i = g_last_hit_tracker.count - 1; i >= 0; --i) 
     {
+        // TODO: timer isn't skipping recently pressed keys for some reason, figure out what tick is?
         if (g_last_hit_tracker.tick[i] <= last_pressed_tick) break;
 
         uint8_t index = g_last_hit_tracker.index[i];
@@ -59,6 +62,7 @@ bool sakura(effect_params_t* params)
     {
         RGB_MATRIX_TEST_LED_FLAGS();
 
+        // TODO: decrement by a reasonable amount
         // Decrement value (linearly or according to some function)
         keystates[i].value = qsub8(keystates[i].value, qadd8(rgb_matrix_config.speed, 1));
 
